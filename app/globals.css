@@ -1,26 +1,115 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --background: #ffffff;
+    --foreground: #171717;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.glow-wrapper {
+    position: relative;
+    display: inline-block;
+    isolation: isolate;
+}
+
+/* BACK GLOW */
+.glow {
+    position: absolute;
+    inset: -35%;
+    z-index: 0;
+
+    border-radius: 50%;
+
+    /* multi-color nebula */
+    background:
+        radial-gradient(circle at 30% 30%, rgba(255, 0, 180, 0.65), transparent 40%),
+        radial-gradient(circle at 70% 60%, rgba(0, 210, 255, 0.65), transparent 42%),
+        radial-gradient(circle at 40% 80%, rgba(80, 255, 170, 0.55), transparent 45%);
+
+    filter: blur(60px);
+
+    transform-origin: center;
+
+    animation:
+        glowRotate 45s linear infinite,
+        glowBreath1 6.5s ease-in-out infinite,
+        glowBreath2 10s ease-in-out infinite,
+        glowBreath3 15.5s ease-in-out infinite;
+}
+
+/* slow color rotation */
+@keyframes glowRotate {
+    0% {
+        filter: blur(60px) hue-rotate(0deg);
+    }
+    100% {
+        filter: blur(60px) hue-rotate(360deg);
+    }
+}
+
+/* primary breath — fast pulse */
+@keyframes glowBreath1 {
+    0%,
+    100% {
+        transform: scale(0.7);
+        opacity: 0.3;
+    }
+    50% {
+        transform: scale(1.06);
+        opacity: 0.9;
+    }
+}
+
+/* secondary breath — slower, deeper dip */
+@keyframes glowBreath2 {
+    0%,
+    100% {
+        transform: scale(0.85);
+        opacity: 0.5;
+    }
+    30% {
+        transform: scale(0.5);
+        opacity: 0.1;
+    }
+    70% {
+        transform: scale(1.04);
+        opacity: 0.85;
+    }
+}
+
+/* tertiary breath — very slow drift, near-vanish */
+@keyframes glowBreath3 {
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.75;
+    }
+    40% {
+        transform: scale(0.55);
+        opacity: 0.08;
+    }
+    75% {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
 }
