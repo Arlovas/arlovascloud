@@ -1,4 +1,4 @@
-import { debug } from "@/lib/debug";
+import { debug } from "@lib/debug";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -72,23 +72,7 @@ export default function Home() {
 
                         {/* RIGHT */}
                         <div className={`p-6 rounded-lg ${debug("bg-blue-500")}`}>
-                            <ul className="space-y-3 text-sm">
-                                <li>
-                                    <Link className="hover:underline" href="/blog">
-                                        Blog
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="hover:underline" href="/tasks">
-                                        Tasks
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="hover:underline" href="/pomodoro">
-                                        Pomodoro
-                                    </Link>
-                                </li>
-                            </ul>
+                            
                         </div>
                     </div>
                 </section>
