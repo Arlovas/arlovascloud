@@ -56,7 +56,7 @@ export default function Home() {
 
                         {/* CENTER IMAGE */}
                         <div className={`p-6 rounded-lg flex justify-center ${debug("bg-green-500")}`}>
-                            <div className="relative w-72 aspect-[960/1093] glow-wrapper">
+                            <div className="relative w-72 aspect-960/1093 glow-wrapper">
                                 <div className="glow" />
                                 <Image
                                     priority

@@ -22,7 +22,8 @@
       "@/*": ["./*"],
       "@data/*": ["./app/data/*"],
       "@lib/*": ["./app/lib/*"],
-      "@hooks/*": ["./app/hooks/*"]
+      "@hooks/*": ["./app/hooks/*"],
+      "@features/*": ["./app/features/*"]
     }
   },
   "include": [

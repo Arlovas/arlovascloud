@@ -1,4 +1,16 @@
+Pomodoro:
+    ☐ 
+
+Layout:
+    ☐ Languages (english / pt-br)
+    ☐ Dark and light theme
+
+
+
+
+
 Home:
-    ☐ Replace the links that are duplicated from nav
-        - I've not a good idea for now but it could be a component that shows some lyrics from bmth
-        - it starts typing when reachs the end erasers and continues. 
+    ✘ Replace the links that are duplicated from nav @cancelled(26-07-07 13:59)
+        I've not a good idea for now but it could be a component that shows some lyrics from bmth
+        it starts typing when reachs the end erasers and continues. 
+    `At the end this is not a bmth site. I'll think in something different for that section`
