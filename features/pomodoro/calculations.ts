@@ -127,6 +127,7 @@ export function getElapsedSeconds(
         );
     }
 
+    console.log("ELAPSE time " + elapsed + " seconds")
 
     return elapsed;
 }

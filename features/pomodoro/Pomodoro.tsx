@@ -1,48 +1,50 @@
 "use client";
 
-import Timer from "./components/Timer";
+import { useCallback } from "react";
 import PomodoroControls from "./components/PomodoroControls";
-import { formatDuration } from "./format";
 import { usePomodoro } from "./usePomodoro";
 
+const POMODORO_DURATION_SECONDS = 25 * 60; // 25 minutes;
+
 export default function Pomodoro() {
+    console.log("RENDERED POMODORO");
+
     const {
-        session,
-        status,
-        remainingSeconds,
         start,
         pause,
         resume,
-        complete,
+        status,
+        remainingSeconds
     } = usePomodoro();
 
+    const isCompleted = status === "completed";
+    const handleStart = useCallback(() => {
+        start("focus", POMODORO_DURATION_SECONDS);
+    }, [start]);
+
     return (
-        <>
-        {/* {console.log('Render pomodoro')} */}
-            <div className="bg-gray-900 w-full min-h-screen flex">
-                {/* Timer section - 70% */}
-                <div className="w-[70%] flex flex-col items-center pt-24 gap-12">
+        <main className="bg-gray-900 w-full min-h-screen flex">
+            <section className="w-[70%] flex flex-col items-center pt-24 gap-12">
+                TOTAL TIME: {POMODORO_DURATION_SECONDS}
+                <br />
+                TIME LEEFT {remainingSeconds}
 
-                    <Timer
-                        remainingSeconds={remainingSeconds}
-                        formattedTime={formatDuration(remainingSeconds)}
-                        sessionType={session?.type ?? "focus"}
-                    />
+                <PomodoroControls
+                    status={status}
+                    onStart={handleStart}
+                    onPause={pause}
+                    onResume={resume}
+                />
 
-                    <PomodoroControls
-                        status={status}
-                        onStart={() => start("focus", 25 * 60)}
-                        onPause={pause}
-                        onResume={resume}
-                        onComplete={complete}
-                    />
-                </div>
+                {isCompleted && (
+                    <p>Pomodoro completed!</p>
+                )}
 
-                {/* Right column - 30% */}
-                <div className="w-[30%] bg-red-700">
-                    {/* History / Tasks */}
-                </div>
-            </div>
-        </>
+            </section>
+
+            <aside className="w-[30%] bg-red-700">
+                {/* History / Tasks */}
+            </aside>
+        </main>
     );
 }

@@ -58,20 +58,20 @@ export default function Timer({
 
                 <div className="flex-1 flex items-end justify-center pb-4">
                     <p className="text-gray-400 text-lg">
-                        {labels.title}
+                        {/* {labels.title} */}
                     </p>
                 </div>
 
                 <div className="flex-2 flex items-center justify-center">
                     <h1 className="text-8xl font-bold text-white">
-                        {console.log(`FORMATED TIME` + formattedTime)}
+                        {/* {console.log(`FORMATED TIME` + formattedTime)} */}
                         {formattedTime}
                     </h1>
                 </div>
 
                 <div className="flex-1 flex items-start justify-center pt-4">
                     <p className="text-gray-400 text-lg">
-                        {labels.subtitle}
+                        {/* {labels.subtitle} */}
                     </p>
                 </div>
             </div>
