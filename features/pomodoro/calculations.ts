@@ -1,29 +1,13 @@
-import { PomodoroEvent, PomodoroSession, SessionStatus } from "./types";
+import { PomodoroSession, SessionStatus } from "./types";
 
-export function getLastEvent(
-    session: PomodoroSession | null
-): PomodoroEvent | null {
+export function getStatus(session: PomodoroSession | null): SessionStatus | null {
     if (!session) {
         return null;
     }
 
-    if (session.events.length === 0) {
-        throw new Error("Invalid session: no events found.");
-    }
+    const lastEvent = session.events.at(-1);
 
-    return session.events[session.events.length - 1];
-}
-
-export function getStatus(
-    session: PomodoroSession | null
-): SessionStatus | null {
-    const lastEvent = getLastEvent(session);
-
-    if (!lastEvent) {
-        return null;
-    }
-
-    switch (lastEvent.type) {
+    switch (lastEvent?.type) {
         case "started":
         case "pauseEnded":
             return "running";
@@ -33,156 +17,119 @@ export function getStatus(
 
         case "completed":
             return "completed";
+
+        default:
+            return null;
     }
 }
 
-export function getStartedAt(
-    session: PomodoroSession | null
-): Date | null {
-    if (!session) {
-        return null;
-    }
-
-    const event = session.events[0];
-
-    if (event.type !== "started") {
-        throw new Error("Invalid session: first event must be 'started'.");
-    }
-
-    return event.timestamp;
-}
-
-export function getCompletedAt(
-    session: PomodoroSession | null
-): Date | null {
-    if (!session) {
-        return null;
-    }
-
-    const completedEvent = session.events.find(
-        (event) => event.type === "completed"
-    );
-
-    return completedEvent?.timestamp ?? null;
-}
-
-export function getElapsedSeconds(
-    session: PomodoroSession | null,
-    now: Date = new Date()
-): number {
-
+export function getElapsedMilliseconds(session: PomodoroSession | null, now: Date): number {
     if (!session) {
         return 0;
     }
 
     let elapsed = 0;
-
-    let runningStartedAt: Date | null = null;
-
+    let runningSince: Date | null = null;
 
     for (const event of session.events) {
-
         switch (event.type) {
-
             case "started":
-            case "pauseEnded":
-                runningStartedAt = event.timestamp;
+                runningSince = event.timestamp;
                 break;
-
 
             case "pauseStarted":
-
-                if (runningStartedAt) {
-                    elapsed += differenceInSeconds(
-                        runningStartedAt,
-                        event.timestamp
+                if (runningSince) {
+                    elapsed += Math.max(
+                        0,
+                        event.timestamp.getTime() -
+                        runningSince.getTime()
                     );
 
-                    runningStartedAt = null;
+                    runningSince = null;
                 }
-
                 break;
 
+            case "pauseEnded":
+                runningSince = event.timestamp;
+                break;
 
             case "completed":
-
-                if (runningStartedAt) {
-                    elapsed += differenceInSeconds(
-                        runningStartedAt,
-                        event.timestamp
+                if (runningSince) {
+                    elapsed += Math.max(
+                        0,
+                        event.timestamp.getTime() -
+                        runningSince.getTime()
                     );
-                }
 
-                runningStartedAt = null;
+                    runningSince = null;
+                }
                 break;
         }
     }
 
-
-    // still running
-    if (runningStartedAt) {
-        elapsed += differenceInSeconds(
-            runningStartedAt,
-            now
+    // Still running
+    if (runningSince) {
+        elapsed += Math.max(
+            0,
+            now.getTime() - runningSince.getTime()
         );
     }
-
-    console.log("ELAPSE time " + elapsed + " seconds")
 
     return elapsed;
 }
 
-function differenceInSeconds(
-    start: Date,
-    end: Date
-) {
+export function getElapsedSeconds(
+    session: PomodoroSession | null,
+    now: Date
+): number {
     return Math.floor(
-        (end.getTime() - start.getTime()) / 1000
+        getElapsedMilliseconds(session, now) / 1000
     );
 }
 
 export function getRemainingSeconds(
     session: PomodoroSession | null,
-    now: Date = new Date()
+    now: Date
 ): number {
-
     if (!session) {
         return 0;
     }
 
+    const durationMilliseconds =
+        session.plannedDurationSeconds * 1000;
 
-    const elapsed = Math.max(
-        0,
-        getElapsedSeconds(
-            session,
-            now
-        )
-    );
+    const elapsedMilliseconds =
+        getElapsedMilliseconds(session, now);
 
     return Math.max(
         0,
-        session.plannedDurationSeconds - elapsed
+        Math.ceil(
+            (durationMilliseconds - elapsedMilliseconds) /
+            1000
+        )
     );
 }
 
 export function getProgress(
     session: PomodoroSession | null,
-    now: Date = new Date()
+    now: Date
 ): number {
-
     if (!session) {
         return 0;
     }
 
+    const durationMilliseconds =
+        session.plannedDurationSeconds * 1000;
 
-    const elapsed = getElapsedSeconds(
-        session,
-        now
-    );
-
+    const elapsedMilliseconds =
+        getElapsedMilliseconds(session, now);
 
     return Math.min(
-        1,
-        elapsed / session.plannedDurationSeconds
+        Math.max(
+            elapsedMilliseconds /
+            durationMilliseconds,
+            0
+        ),
+        1
     );
 }

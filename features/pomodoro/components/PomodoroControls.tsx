@@ -16,7 +16,7 @@ function PomodoroControls({
     onPause,
     onResume
 }: PomodoroControlsProps) {
-    console.log("Rendered POMODORO_CONTROLS")
+    console.log("RENDERED POMODORO_CONTROLS")
 
     const isPaused = status === "paused";
     const canStart = status === null || status === "completed";
