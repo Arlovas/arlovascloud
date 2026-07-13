@@ -5,13 +5,9 @@ interface TimerDisplayProps {
 export default function TimerDisplay({
     seconds,
 }: TimerDisplayProps) {
-
-    console.log("RENDERED POMODORO_CONTROLS")
-
-
     return (
-        <div className="z-10 flex-2 flex items-center justify-center">
-            <h1 className="text-8xl font-bold text-white">
+        <div className="flex items-center justify-center">
+            <h1 className="text-[5.5rem] font-bold text-white leading-none tracking-tight">
                 {formatDuration(seconds)}
             </h1>
         </div>

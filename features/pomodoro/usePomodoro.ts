@@ -117,6 +117,10 @@ export function usePomodoro() {
         setSession(newSession);
     }, []);
 
+    const reset = useCallback(() => {
+        setSession(null);
+    }, []);
+
     // ─── 1-second interval for display updates ───────────────────────────
     // This only drives the TimerDisplay digits. Completion is handled by the worker.
     useEffect(() => {
@@ -151,6 +155,7 @@ export function usePomodoro() {
     return {
         start,
         pause,
+        reset,
         resume,
         status,
         session,

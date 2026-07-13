@@ -3,6 +3,8 @@ export type SessionStatus =
     | "paused"
     | "completed";
 
+export type NullableSessionStatus = SessionStatus | null;
+
 export type SessionType = "focus" | "shortBreak" | "longBreak";
 
 export interface PomodoroTask {
@@ -44,3 +46,5 @@ export interface PomodoroSession {
     tasks: PomodoroTask[];
     events: PomodoroEvent[];
 }
+
+export type NullableSession = PomodoroSession | null;

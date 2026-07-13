@@ -8,22 +8,19 @@ function TimerMarker({
     index,
 }: TimerMarkerProps) {
     const isMajor = index % 5 === 0;
-
-    console.log("RENDERED TIMER_MARKER")
-
     return (
         <div
-            className="absolute inset-0 flex justify-center"
+            className="absolute inset-0 flex justify-center z-10"
             style={{
                 transform: `rotate(${index * 6}deg)`,
             }}
         >
             <div
                 className={`
-                    mt-2 rounded-full
+                    rounded-full
                     ${isMajor
-                        ? "h-5 w-1.5 bg-red-500"
-                        : "h-2 w-px bg-red-400"
+                        ? "h-4 w-1 bg-red-500/80 mt-8"
+                        : "h-2 w-px bg-red-400/40 mt-9"
                     }
                 `}
             />
