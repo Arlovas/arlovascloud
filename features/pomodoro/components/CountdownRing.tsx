@@ -39,7 +39,7 @@ export default function CountdownRing({ session }: CountdownRingProps) {
             <defs>
                 {/* Gradient for the progress ring */}
                 <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#ff6b6b" />
+                    <stop offset="0%" stopColor="#dcd4d4" />
                     <stop offset="50%" stopColor="#ef4444" />
                     <stop offset="100%" stopColor="#ff4040" />
                 </linearGradient>

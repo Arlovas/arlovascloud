@@ -57,8 +57,8 @@ function PomodoroTimer({
                 <TimerDisplay seconds={seconds} />
 
                 {/* Pomodoro counter */}
-                <div className="flex items-center gap-2 mt-1">
-                    <span className="text-base">🍅</span>
+                <div className="flex items-center gap-2 mt-1 bg-backgroundfade rounded-4xl py-2 px-4">
+                    <span className="text-base ">🍅</span>
                     <p className="text-gray-400 text-sm tracking-wider uppercase">
                         Pomodoro {currentPomodoro}/{totalPomodoros}
                     </p>

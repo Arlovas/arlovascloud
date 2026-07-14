@@ -19,8 +19,8 @@ function TimerMarker({
                 className={`
                     rounded-full
                     ${isMajor
-                        ? "h-4 w-1 bg-red-500/80 mt-8"
-                        : "h-2 w-px bg-red-400/40 mt-9"
+                        ? "h-3 w-1 bg-red-500/40 mt-8"
+                        : "h-2 w-px bg-red-700/40 mt-9"
                     }
                 `}
             />
