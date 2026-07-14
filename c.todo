@@ -6,6 +6,7 @@ Pomodoro:
         ✔ Improve positioning timer and task @done(26-07-14 14:49)
         ✔ Add sounds to pomodoro finish @done(26-07-14 15:04)
         ✔ Fix layout shift @done(26-07-14 15:06)
+        ✔ Fix buttons play pause different sizes @done(26-07-14 15:23)
         ☐ Full cycle - Pomodoro -> break -> pomodoro
         ☐ Pomodoro timer configurable
         ☐ Add tasks

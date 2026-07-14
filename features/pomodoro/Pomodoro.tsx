@@ -59,12 +59,11 @@ export default function Pomodoro() {
     return (
         <main className="w-full h-screen flex" style={{ background: "#0d1117" }}>
             <section className="w-[65%] flex flex-col items-center">
-                <div className="flex-[6] flex flex-col items-center justify-center gap-10">
+                <div className="flex-6 flex flex-col items-center justify-center gap-10">
 
                     <PomodoroTimer
                         session={session}
                         seconds={displaySeconds}
-
                         totalPomodoros={4}
                     />
 

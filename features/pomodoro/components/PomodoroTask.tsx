@@ -1,6 +1,6 @@
 export default function PomodoroTask() {
     return (
-        <div className="w-full max-w-2xl flex-[4]">
+        <div className="w-full max-w-2xl flex-4">
             <div className="w-full max-w-2xl rounded-3xl shadow-2xl backdrop-blur-xl bg-zinc-800/20  p-10">
                 <div className="mb-6 flex items-center justify-between">
                     <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
