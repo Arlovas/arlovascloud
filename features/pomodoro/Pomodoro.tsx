@@ -76,9 +76,9 @@ export default function Pomodoro() {
                         onReset={reset}
                     />
 
-                    {isCompleted && (
-                        <p className="text-green-400 text-sm">Session completed! 🎉</p>
-                    )}
+                    <p className={`h-5 text-sm text-green-400 ${isCompleted ? "visible" : "invisible"}`}>
+                        Session completed! 🎉
+                    </p>
 
                 </div>
 
@@ -86,7 +86,6 @@ export default function Pomodoro() {
             </section>
 
             <aside className="w-[35%] pt-20 pr-8">
-
                 <PomodoroLog />
             </aside>
         </main>
