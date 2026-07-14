@@ -3,7 +3,12 @@ Pomodoro:
     ✔ Create mocks for tasks @done(26-07-14 14:19)
     ✔ Create mocks for logs @done(26-07-14 14:19)
     Layout:
-        ☐ Improve positioning timer and task
+        ✔ Improve positioning timer and task @done(26-07-14 14:49)
+        ☐ Add sounds to pomodoro finish
+        ☐ Full cycle - Pomodoro -> break -> pomodoro
+        ☐ Pomodoro timer configurable
+        ☐ Add tasks
+        ☐ Pomodoro Logs
 
 Layout:
     ☐ Languages (english / pt-br)
