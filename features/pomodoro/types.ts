@@ -1,4 +1,5 @@
 export type SessionStatus =
+    | "idle"
     | "running"
     | "paused"
     | "completed";
@@ -48,3 +49,8 @@ export interface PomodoroSession {
 }
 
 export type NullableSession = PomodoroSession | null;
+
+export type PendingSession = {
+    type: SessionType;
+    plannedDurationSeconds: number;
+};

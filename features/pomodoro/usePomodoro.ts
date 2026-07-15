@@ -1,14 +1,26 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { PomodoroSession, SessionType } from "./types";
+import { PendingSession, PomodoroSession, SessionType } from "./types";
 import { getElapsedMilliseconds, getElapsedSeconds, getRemainingSeconds, getStatus } from "./calculations";
 import { completeSession, createSession, pauseSession, resumeSession } from "./pomodoroSession";
 import { useCompletionWorker } from "./useCompletionWorker";
 
-export function usePomodoro() {
+export function usePomodoro({
+    focusDurationSeconds,
+    shortBreakDurationSeconds,
+}: {
+    focusDurationSeconds: number;
+    shortBreakDurationSeconds: number;
+}) {
     const [session, setSession] = useState<PomodoroSession | null>(null);
     const [now, setNow] = useState(() => new Date());
+
+    const [pendingSession, setPendingSession] =
+        useState<PendingSession>({
+            type: "focus",
+            plannedDurationSeconds: focusDurationSeconds,
+        });
 
     const status = getStatus(session);
     const isRunning = status === "running";
@@ -107,19 +119,41 @@ export function usePomodoro() {
         });
     }, []);
 
-    const start = useCallback((sessionType: SessionType, plannedDurationSeconds: number) => {
+    const start = useCallback(() => {
         const timestamp = new Date();
-        console.log("[usePomodoro] Starting", sessionType, "session for", plannedDurationSeconds, "seconds");
-
-        const newSession = createSession(sessionType, plannedDurationSeconds, timestamp);
 
         setNow(timestamp);
-        setSession(newSession);
-    }, []);
+
+        setSession(
+            createSession(
+                pendingSession.type,
+                pendingSession.plannedDurationSeconds,
+                timestamp
+            )
+        );
+    }, [pendingSession]);
+
+    const prepareSession = useCallback(
+        (type: SessionType, plannedDurationSeconds: number) => {
+            setSession(null);
+
+            setPendingSession({
+                type,
+                plannedDurationSeconds,
+            });
+
+            setNow(new Date());
+        },
+        []
+    );
 
     const reset = useCallback(() => {
-        setSession(null);
-    }, []);
+        prepareSession("focus", focusDurationSeconds);
+    }, [prepareSession, focusDurationSeconds]);
+
+    const selectBreak = useCallback(() => {
+        prepareSession("shortBreak", shortBreakDurationSeconds);
+    }, [prepareSession, shortBreakDurationSeconds]);
 
     // ─── 1-second interval for display updates ───────────────────────────
     // This only drives the TimerDisplay digits. Completion is handled by the worker.
@@ -160,5 +194,7 @@ export function usePomodoro() {
         status,
         session,
         remainingSeconds,
+        pendingSession,
+        selectBreak,
     };
 }

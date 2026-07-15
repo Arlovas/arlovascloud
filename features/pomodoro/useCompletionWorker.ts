@@ -26,7 +26,7 @@ export function useCompletionWorker(
 
     // Create and terminate the worker with the component lifecycle
     useEffect(() => {
-        console.log("[useCompletionWorker] Creating Web Worker");
+        // console.log("[useCompletionWorker] Creating Web Worker");
 
         workerRef.current = new Worker(
             new URL("./timer.worker.ts", import.meta.url)
@@ -34,7 +34,7 @@ export function useCompletionWorker(
 
         workerRef.current.onmessage = (e: MessageEvent) => {
             if (e.data.type === "completed") {
-                console.log("[useCompletionWorker] Received 'completed' from worker");
+                // console.log("[useCompletionWorker] Received 'completed' from worker");
                 onCompleteRef.current();
             }
         };
@@ -44,7 +44,7 @@ export function useCompletionWorker(
         };
 
         return () => {
-            console.log("[useCompletionWorker] Terminating Web Worker");
+            // console.log("[useCompletionWorker] Terminating Web Worker");
             workerRef.current?.terminate();
             workerRef.current = null;
         };
@@ -55,10 +55,10 @@ export function useCompletionWorker(
         if (!workerRef.current) return;
 
         if (remainingMs !== null && remainingMs > 0) {
-            console.log(`[useCompletionWorker] Sending 'start' to worker — ${remainingMs}ms remaining`);
+            // console.log(`[useCompletionWorker] Sending 'start' to worker — ${remainingMs}ms remaining`);
             workerRef.current.postMessage({ type: "start", remainingMs });
         } else {
-            console.log("[useCompletionWorker] Sending 'cancel' to worker");
+            // console.log("[useCompletionWorker] Sending 'cancel' to worker");
             workerRef.current.postMessage({ type: "cancel" });
         }
     }, [remainingMs]);

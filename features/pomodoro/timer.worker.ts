@@ -20,13 +20,13 @@ self.onmessage = (e: MessageEvent) => {
         // Clear any existing timer before starting a new one
         if (timeoutId) {
             clearTimeout(timeoutId);
-            console.log("[Worker] Cleared previous timer");
+            // console.log("[Worker] Cleared previous timer");
         }
 
-        console.log(`[Worker] Starting timer for ${remainingMs}ms (${(remainingMs / 1000).toFixed(1)}s)`);
+        // console.log(`[Worker] Starting timer for ${remainingMs}ms (${(remainingMs / 1000).toFixed(1)}s)`);
 
         timeoutId = setTimeout(() => {
-            console.log("[Worker] Timer completed! Posting message to main thread.");
+            // console.log("[Worker] Timer completed! Posting message to main thread.");
             self.postMessage({ type: "completed" });
             timeoutId = null;
         }, remainingMs);
@@ -36,7 +36,7 @@ self.onmessage = (e: MessageEvent) => {
         if (timeoutId) {
             clearTimeout(timeoutId);
             timeoutId = null;
-            console.log("[Worker] Timer cancelled");
+            // console.log("[Worker] Timer cancelled");
         }
     }
 };

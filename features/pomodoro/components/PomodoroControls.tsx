@@ -6,8 +6,8 @@ interface PomodoroControlsProps {
     onStart: () => void;
     onPause: () => void;
     onResume: () => void;
-    onReset?: () => void;
-    onSkip?: () => void;
+    onReset: () => void;
+    onBreak: () => void;
 }
 
 function PomodoroControls({
@@ -16,7 +16,7 @@ function PomodoroControls({
     onPause,
     onResume,
     onReset,
-    onSkip,
+    onBreak,
 }: PomodoroControlsProps) {
     const isPaused = status === "paused";
     const canStart = status === null || status === "completed";
@@ -74,10 +74,9 @@ function PomodoroControls({
                 </button>
             )}
 
-            {/* Skip button */}
             <button
-                onClick={onSkip}
-                className="cursor-pointer flex items-center gap-2 px-5 py-3 rounded-full border border-gray-700 text-gray-300 hover:border-gray-500 hover:text-white transition-colors bg-transparent"
+                onClick={onBreak}
+                className="z-10 cursor-pointer flex items-center gap-2 px-5 py-3 rounded-full border border-gray-700 text-gray-300 hover:border-gray-500 hover:text-white transition-colors bg-transparent"
             >
                 <svg
                     className="w-4 h-4"

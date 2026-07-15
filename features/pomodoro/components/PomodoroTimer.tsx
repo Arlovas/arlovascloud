@@ -1,6 +1,6 @@
 import { memo } from "react";
 
-import { PomodoroSession } from "../types";
+import { PomodoroSession, SessionType } from "../types";
 
 import CountdownRing from "./CountdownRing";
 import TimerDisplay from "./TimerDisplay";
@@ -9,20 +9,29 @@ import TimerMarker from "./TimerMarker";
 const CLOCK_MARKERS = Array.from({ length: 60 });
 
 interface PomodoroTimerProps {
+    sessionType: SessionType;
     session: PomodoroSession | null;
     seconds: number;
     currentPomodoro?: number;
     totalPomodoros?: number;
 }
 
+const SESSION_LABELS: Record<SessionType, string> = {
+    focus: "FOCUS TIME",
+    shortBreak: "SHORT BREAK",
+    longBreak: "LONG BREAK",
+};
+
 function PomodoroTimer({
     seconds,
     session,
+    sessionType,
     currentPomodoro = 1,
     totalPomodoros = 4,
 }: PomodoroTimerProps) {
+
     return (
-        <div className="relative w-[420px] h-[420px] rounded-full flex flex-col items-center justify-center">
+        <div className="relative w-[450px] h-[450px] rounded-full flex flex-col items-center justify-center">
             {/* Outer ambient glow (very subtle) */}
             <div className="absolute inset-[-15px] rounded-full bg-red-500/3 blur-lg" />
 
@@ -34,21 +43,13 @@ function PomodoroTimer({
                 <TimerMarker key={index} index={index} />
             ))}
 
-            {/* Tomato marker at the top */}
-            {/* <div className="absolute top-1 left-1/2 -translate-x-1/2 z-20">
-                <span className="text-2xl">🍅</span>
-            </div> */}
-
             {/* Center content */}
             <div className="z-10 flex flex-col items-center justify-center gap-2">
-                {/* Focus time label */}
-                {/* <span className="text-2xl">🍅</span> */}
-
                 <div className="flex items-center gap-2">
-                    
+
                     <span className="text-red-400 text-xs">✦</span>
                     <p className="text-gray-400 text-sm tracking-[0.2em] uppercase font-medium">
-                        Focus Time
+                        {SESSION_LABELS[sessionType]}
                     </p>
                     <span className="text-red-400 text-xs">✦</span>
                 </div>

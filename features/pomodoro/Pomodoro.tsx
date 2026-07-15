@@ -9,7 +9,8 @@ import PomodoroLog from "./components/PomodoroLog";
 import PomodoroTask from "./components/PomodoroTask";
 
 // const POMODORO_DURATION_SECONDS = 25 * 60; // 25 minutes
-const POMODORO_DURATION_SECONDS = 2; // DEBUG
+const POMODORO_DURATION_SECONDS = 10; // DEBUG
+const SHORT_BREAK_DURATION_SECONDS = 2; // DEBUG
 
 export default function Pomodoro() {
     const {
@@ -20,7 +21,12 @@ export default function Pomodoro() {
         session,
         reset,
         remainingSeconds,
-    } = usePomodoro();
+        selectBreak,
+        pendingSession
+    } = usePomodoro({
+        focusDurationSeconds: POMODORO_DURATION_SECONDS,
+        shortBreakDurationSeconds: SHORT_BREAK_DURATION_SECONDS,
+    });
 
     // For now just used to show when complete
     const isCompleted = status === "completed";
@@ -29,7 +35,7 @@ export default function Pomodoro() {
     // Create the audio once
     useEffect(() => {
         audioRef.current = new Audio("/sounds/public_sounds_Pomodoro_end_Startup.mp3");
-        audioRef.current.volume = 0.3;
+        audioRef.current.volume = 0.1;
     }, []);
 
     // Play it whenever the session completes
@@ -43,18 +49,12 @@ export default function Pomodoro() {
     }, [isCompleted]);
 
     // The `||` operator is for refresh (F5) show the correct time
-    let displaySeconds = remainingSeconds || POMODORO_DURATION_SECONDS;
+    let displaySeconds = remainingSeconds ?? pendingSession.plannedDurationSeconds;
 
     // Keep 00:00 on completion
     if (isCompleted) {
         displaySeconds = 0;
     }
-
-    // Avoid re-creating the callback on every render
-    // Keep the callback reference stable between renders
-    const handleStart = useCallback(() => {
-        start("focus", POMODORO_DURATION_SECONDS);
-    }, [start]);
 
     return (
         <main className="w-full h-screen flex" style={{ background: "#0d1117" }}>
@@ -62,6 +62,7 @@ export default function Pomodoro() {
                 <div className="flex-6 flex flex-col items-center justify-center gap-10">
 
                     <PomodoroTimer
+                        sessionType={pendingSession.type}
                         session={session}
                         seconds={displaySeconds}
                         totalPomodoros={4}
@@ -69,10 +70,11 @@ export default function Pomodoro() {
 
                     <PomodoroControls
                         status={status}
-                        onStart={handleStart}
+                        onStart={start}
                         onPause={pause}
                         onResume={resume}
                         onReset={reset}
+                        onBreak={selectBreak}
                     />
 
                     <p className={`h-5 text-sm text-green-400 ${isCompleted ? "visible" : "invisible"}`}>

@@ -141,14 +141,16 @@ export function getElapsedSeconds(session: NullableSession, now: Date): number {
  * @param now The current time used to calculate an active running interval.
  * @returns The number of remaining seconds, clamped to a minimum of `0`.
  */
-export function getRemainingSeconds(session: NullableSession, now: Date): number {
+export function getRemainingSeconds(session: NullableSession, now: Date): number | null {
     if (!session) {
-        return 0;
+        return null;
     }
 
     const durationMilliseconds = session.plannedDurationSeconds * 1000;
     const elapsedMilliseconds = getElapsedMilliseconds(session, now);
-    const remainingSeconds = Math.ceil((durationMilliseconds - elapsedMilliseconds) / 1000);
+    const remainingSeconds = Math.ceil(
+        (durationMilliseconds - elapsedMilliseconds) / 1000
+    );
 
     return Math.max(0, remainingSeconds);
 }
