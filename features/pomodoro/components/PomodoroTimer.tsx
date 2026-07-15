@@ -36,7 +36,7 @@ function PomodoroTimer({
             <div className="absolute inset-[-15px] rounded-full bg-red-500/3 blur-lg" />
 
             {/* Ring (behind markers) */}
-            <CountdownRing session={session} />
+            <CountdownRing session={session} sessionType={sessionType} />
 
             {/* Clock markers (on top of ring) */}
             {CLOCK_MARKERS.map((_, index) => (

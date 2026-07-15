@@ -1,8 +1,9 @@
 import { memo } from "react";
-import { SessionStatus } from "../types";
+import { SessionStatus, SessionType } from "../types";
 
 interface PomodoroControlsProps {
     status: SessionStatus | null;
+    sessionType: SessionType,
     onStart: () => void;
     onPause: () => void;
     onResume: () => void;
@@ -17,10 +18,17 @@ function PomodoroControls({
     onResume,
     onReset,
     onBreak,
+    sessionType,
 }: PomodoroControlsProps) {
     const isPaused = status === "paused";
     const canStart = status === null || status === "completed";
     const isRunning = status === "running";
+    const isBreak = sessionType === "shortBreak" || sessionType === "longBreak";
+
+    let startGradiantColors = "bg-gradient-to-r from-red-600 to-red-800 shadow-red-500/25 hover:shadow-red-500/40 hover:from-red-400 hover:to-red-500";
+    if (isBreak) {
+        startGradiantColors = "bg-gradient-to-r from-blue-800 to-blue-950 shadow-blue-500/25 hover:shadow-blue-900/40 hover:from-blue-700 hover:to-blue-900";
+    }
 
     return (
         <div className="flex items-center gap-4">
@@ -40,7 +48,7 @@ function PomodoroControls({
             {canStart && (
                 <button
                     onClick={onStart}
-                    className="w-40 cursor-pointer z-10 flex items-center gap-2 px-10 py-3 rounded-full bg-gradient-to-r from-red-600 to-red-800 text-white font-semibold shadow-lg shadow-red-500/25 hover:shadow-red-500/40 hover:from-red-400 hover:to-red-500 transition-all"
+                    className={`w-40 cursor-pointer z-10 flex items-center gap-2 px-10 py-3 rounded-full ${startGradiantColors} text-white font-semibold shadow-lg transition-all`}
                 >
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M8 5v14l11-7z" />
@@ -52,7 +60,7 @@ function PomodoroControls({
             {isRunning && (
                 <button
                     onClick={onPause}
-                    className="w-40 cursor-pointer z-10 flex items-center gap-2 px-10 py-3 rounded-full bg-gradient-to-r from-red-600 to-red-800 text-white font-semibold shadow-lg shadow-red-500/25 hover:shadow-red-500/40 transition-all"
+                    className={`${startGradiantColors} w-40 cursor-pointer z-10 flex items-center gap-2 px-10 py-3 rounded-full text-white font-semibold shadow-lg transition-all`}
                 >
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                         <rect x="6" y="4" width="4" height="16" />
@@ -65,7 +73,7 @@ function PomodoroControls({
             {isPaused && (
                 <button
                     onClick={onResume}
-                    className="w-40 cursor-pointer z-10 flex items-center gap-2 px-10 py-3 rounded-full bg-gradient-to-r from-red-600 to-red-800 text-white font-semibold shadow-lg shadow-red-500/25 hover:shadow-red-500/40 transition-all"
+                    className={`${startGradiantColors} w-40 cursor-pointer z-10 flex items-center gap-2 px-10 py-3 rounded-full text-white font-semibold shadow-lg transition-all{}`}
                 >
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M8 5v14l11-7z" />

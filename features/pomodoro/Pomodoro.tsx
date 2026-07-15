@@ -75,6 +75,7 @@ export default function Pomodoro() {
                         onResume={resume}
                         onReset={reset}
                         onBreak={selectBreak}
+                        sessionType={pendingSession.type}
                     />
 
                     <p className={`h-5 text-sm text-green-400 ${isCompleted ? "visible" : "invisible"}`}>
