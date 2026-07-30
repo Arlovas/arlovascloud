@@ -7,6 +7,7 @@ Pomodoro:
         ✔ Add sounds to pomodoro finish @done(26-07-14 15:04)
         ✔ Fix layout shift @done(26-07-14 15:06)
         ✔ Fix buttons play pause different sizes @done(26-07-14 15:23)
+        ☐ Change pomodoro timer markers to blue when in break
         ☐ Full cycle - Pomodoro -> break -> pomodoro
         ☐ Pomodoro timer configurable
         ☐ Add tasks

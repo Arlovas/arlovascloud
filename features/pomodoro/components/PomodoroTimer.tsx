@@ -40,7 +40,7 @@ function PomodoroTimer({
 
             {/* Clock markers (on top of ring) */}
             {CLOCK_MARKERS.map((_, index) => (
-                <TimerMarker key={index} index={index} />
+                <TimerMarker sessionType={sessionType} key={index} index={index} />
             ))}
 
             {/* Center content */}
