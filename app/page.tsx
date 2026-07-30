@@ -1,37 +1,9 @@
 import { debug } from "@lib/debug";
 import Image from "next/image";
-import Link from "next/link";
 
 export default function Home() {
     return (
         <div className={`min-h-screen flex flex-col ${debug("bg-gray-900 text-white")}`}>
-            {/* HEADER */}
-            <header>
-                <nav className={`h-16 ${debug("bg-amber-50 text-black")}`}>
-                    <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4 md:px-6">
-                        <div className="font-semibold">Arlovas</div>
-
-                        <ul className="flex gap-6 text-sm">
-                            <li>
-                                <Link className="hover:underline focus-visible:outline" href="/blog">
-                                    Blog
-                                </Link>
-                            </li>
-                            <li>
-                                <Link className="hover:underline focus-visible:outline" href="/tasks">
-                                    Tasks
-                                </Link>
-                            </li>
-                            <li>
-                                <Link className="hover:underline focus-visible:outline" href="/pomodoro">
-                                    Pomodoro
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </header>
-
             {/* MAIN */}
             <main className={`flex-1 flex items-center ${debug("bg-amber-800")}`}>
                 <section
@@ -72,7 +44,7 @@ export default function Home() {
 
                         {/* RIGHT */}
                         <div className={`p-6 rounded-lg ${debug("bg-blue-500")}`}>
-                            
+
                         </div>
                     </div>
                 </section>

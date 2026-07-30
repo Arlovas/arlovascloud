@@ -57,7 +57,7 @@ export default function Pomodoro() {
     }
 
     return (
-        <main className="w-full h-screen flex" style={{ background: "#0d1117" }}>
+        <main className="w-full h-screen flex">
             <section className="w-[65%] flex flex-col items-center">
                 <div className="flex-6 flex flex-col items-center justify-center gap-10">
 
