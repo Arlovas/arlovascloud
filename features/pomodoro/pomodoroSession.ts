@@ -1,4 +1,4 @@
-import { PomodoroSession, SessionType } from "./types";
+import { PendingSession, PomodoroSession, SessionType } from "./types";
 import { getStatus } from "./calculations";
 
 function createId() {
@@ -79,6 +79,26 @@ export function resumeSession(
  * Adds a completed event to a running session.
  * Returns the original session if it cannot be completed.
  */
+export function nextPendingSessionAfterComplete(
+    completedType: SessionType,
+    focusDurationSeconds: number,
+    shortBreakDurationSeconds: number
+): PendingSession {
+    switch (completedType) {
+        case "focus":
+            return {
+                type: "shortBreak",
+                plannedDurationSeconds: shortBreakDurationSeconds,
+            };
+        case "shortBreak":
+        case "longBreak":
+            return {
+                type: "focus",
+                plannedDurationSeconds: focusDurationSeconds,
+            };
+    }
+}
+
 export function completeSession(
     session: PomodoroSession,
     timestamp: Date

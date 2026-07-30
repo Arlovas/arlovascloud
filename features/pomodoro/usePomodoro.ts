@@ -3,7 +3,13 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { PendingSession, PomodoroSession, SessionType } from "./types";
 import { getElapsedMilliseconds, getElapsedSeconds, getRemainingSeconds, getStatus } from "./calculations";
-import { completeSession, createSession, pauseSession, resumeSession } from "./pomodoroSession";
+import {
+    completeSession,
+    createSession,
+    nextPendingSessionAfterComplete,
+    pauseSession,
+    resumeSession,
+} from "./pomodoroSession";
 import { useCompletionWorker } from "./useCompletionWorker";
 
 export function usePomodoro({
@@ -38,9 +44,21 @@ export function usePomodoro({
                 return current;
             }
 
+            if (getStatus(current) !== "running") {
+                return current;
+            }
+
+            setPendingSession(
+                nextPendingSessionAfterComplete(
+                    current.type,
+                    focusDurationSeconds,
+                    shortBreakDurationSeconds
+                )
+            );
+
             return completeSession(current, timestamp);
         });
-    }, []);
+    }, [focusDurationSeconds, shortBreakDurationSeconds]);
 
     // ─── Worker-based completion (immune to background throttling) ────────
     // Calculate remaining ms for the worker. null = don't run.

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { usePomodoro } from "./usePomodoro";
 
 import PomodoroControls from "./components/PomodoroControls";
@@ -9,7 +9,7 @@ import PomodoroLog from "./components/PomodoroLog";
 import PomodoroTask from "./components/PomodoroTask";
 
 // const POMODORO_DURATION_SECONDS = 25 * 60; // 25 minutes
-const POMODORO_DURATION_SECONDS = 10; // DEBUG
+const POMODORO_DURATION_SECONDS = 2; // DEBUG
 const SHORT_BREAK_DURATION_SECONDS = 2; // DEBUG
 
 export default function Pomodoro() {
