@@ -1,4 +1,5 @@
 import Link from "next/link";
+import NavActions from "./NavActions";
 
 export default function SiteNav() {
     return (
@@ -9,7 +10,7 @@ export default function SiteNav() {
                         <Link href="/">Arlovas</Link>
                     </div>
 
-                    <ul className="flex gap-6 text-sm">
+                    <ul className="flex gap-6 text-sm items-center">
                         <li>
                             <Link className="hover:underline focus-visible:outline" href="/blog">
                                 Blog
@@ -24,6 +25,9 @@ export default function SiteNav() {
                             <Link className="hover:underline focus-visible:outline" href="/pomodoro">
                                 Pomodoro
                             </Link>
+                        </li>
+                        <li className="w-8 flex justify-center">
+                            <NavActions />
                         </li>
                     </ul>
                 </div>

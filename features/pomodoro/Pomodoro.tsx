@@ -8,9 +8,8 @@ import PomodoroTimer from "./components/PomodoroTimer";
 import PomodoroLog from "./components/PomodoroLog";
 import PomodoroTask from "./components/PomodoroTask";
 
-// const POMODORO_DURATION_SECONDS = 25 * 60; // 25 minutes
-const POMODORO_DURATION_SECONDS = 2; // DEBUG
-const SHORT_BREAK_DURATION_SECONDS = 2; // DEBUG
+const POMODORO_DURATION_SECONDS = 25 * 60; // 25 minutes
+const SHORT_BREAK_DURATION_SECONDS = 5 * 60; // 5 minutes
 
 export default function Pomodoro() {
     const {
