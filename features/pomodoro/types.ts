@@ -54,3 +54,9 @@ export type PendingSession = {
     type: SessionType;
     plannedDurationSeconds: number;
 };
+
+export type PomodoroSettings = {
+    focusDurationSeconds: number;
+    shortBreakDurationSeconds: number;
+    longBreakDurationSeconds: number;
+};

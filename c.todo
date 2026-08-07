@@ -1,3 +1,8 @@
+APP:
+    ☐ Add Biome
+    ☐ Add Languague selector
+    ☐ Add Theme selector
+
 Pomodoro:
     ✔ Timer @done(26-07-14 14:19)
     ✔ Create mocks for tasks @done(26-07-14 14:19)
@@ -9,16 +14,16 @@ Pomodoro:
         ✔ Fix buttons play pause different sizes @done(26-07-14 15:23)
         ✔ Change pomodoro timer markers to blue when in break @done(26-07-30 10:48)
         ✔ Full cycle - Pomodoro -> break -> pomodoro @done(26-07-30 11:00)
-        ☐ Pomodoro timer configurable
+        ✔ Pomodoro timer configurable @done(26-08-07 16:02)        
+        ☐ Validate settings json when save and when read
+        ☐ Restor to default settings (just delete json from local storage)
+        ☐ Improve the button
         ☐ Add tasks
         ☐ Pomodoro Logs
 
 Layout:
     ☐ Languages (english / pt-br)
     ☐ Dark and light theme
-
-
-
 
 
 Home:

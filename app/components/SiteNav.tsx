@@ -26,9 +26,6 @@ export default function SiteNav() {
                                 Pomodoro
                             </Link>
                         </li>
-                        <li className="w-8 flex justify-center">
-                            <NavActions />
-                        </li>
                     </ul>
                 </div>
             </nav>

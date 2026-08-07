@@ -34,6 +34,17 @@ export function usePomodoro({
 
     console.log("[usePomodoro] status:", status, "| remainingSeconds:", remainingSeconds);
 
+    useEffect(() => {
+        console.log("SESSION CHANGED:", session);
+
+        if (session === null) {
+            setPendingSession({
+                ...pendingSession,
+                plannedDurationSeconds: focusDurationSeconds,
+            });
+        }
+    }, [focusDurationSeconds, shortBreakDurationSeconds]);
+
     // ─── Completion callback ─────────────────────────────────────────────
     const complete = useCallback(() => {
         const timestamp = new Date();
