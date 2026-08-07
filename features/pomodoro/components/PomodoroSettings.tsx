@@ -9,7 +9,9 @@ import {
     parseFormMinutesToSeconds,
 } from "../constants";
 import type { PomodoroSettings } from "../types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const SETTINGS_FORM_ID = "pomodoro-settings-form";
 
 interface PomodoroSettingsProps {
     settings: PomodoroSettings;
@@ -18,21 +20,31 @@ interface PomodoroSettingsProps {
 
 export default function PomodoroSettings({ settings, updateSettings }: PomodoroSettingsProps) {
     const [open, setOpen] = useState(false);
+    const [focusMinutes, setFocusMinutes] = useState(() =>
+        String(settings.focusDurationSeconds / 60),
+    );
+    const [breakMinutes, setBreakMinutes] = useState(() =>
+        String(settings.shortBreakDurationSeconds / 60),
+    );
 
-    const focusDurationMinutes = settings.focusDurationSeconds / 60;
-    const breakDurationMinutes = settings.shortBreakDurationSeconds / 60;
-    const formKey = `${settings.focusDurationSeconds}-${settings.shortBreakDurationSeconds}`;
+    useEffect(() => {
+        if (!open) {
+            return;
+        }
+
+        setFocusMinutes(String(settings.focusDurationSeconds / 60));
+        setBreakMinutes(String(settings.shortBreakDurationSeconds / 60));
+    }, [open, settings.focusDurationSeconds, settings.shortBreakDurationSeconds]);
 
     function handleSave(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        const formData = new FormData(e.target as HTMLFormElement);
         const focusDurationSeconds = parseFormMinutesToSeconds(
-            formData.get("focusTime"),
+            focusMinutes,
             DEFAULT_FOCUS_DURATION_SECONDS,
         );
         const breakDurationSeconds = parseFormMinutesToSeconds(
-            formData.get("breakTime"),
+            breakMinutes,
             DEFAULT_SHORT_BREAK_DURATION_SECONDS,
         );
 
@@ -49,6 +61,7 @@ export default function PomodoroSettings({ settings, updateSettings }: PomodoroS
             <DialogTrigger
                 render={
                     <button
+                        type="button"
                         className="cursor-pointer z-10 flex items-center gap-2 px-10 py-3 rounded-full bg-gray-700/20 text-white font-semibold shadow-lg transition-all hover:bg-gray-700/30"
                     >
 
@@ -57,8 +70,8 @@ export default function PomodoroSettings({ settings, updateSettings }: PomodoroS
                 }
             />
 
-            <DialogContent className="sm:max-w-sm">
-                <form onSubmit={handleSave} key={formKey}>
+            <form id={SETTINGS_FORM_ID} onSubmit={handleSave}>
+                <DialogContent className="sm:max-w-sm" finalFocus={false}>
                     <DialogHeader>
                         <DialogTitle>Configure Pomodoro</DialogTitle>
                         <DialogDescription>
@@ -68,19 +81,33 @@ export default function PomodoroSettings({ settings, updateSettings }: PomodoroS
                     <FieldGroup>
                         <Field>
                             <Label htmlFor="focusTime">Focus time (minutes)</Label>
-                            <Input id="focusTime" name="focusTime" defaultValue={focusDurationMinutes} />
+                            <Input
+                                id="focusTime"
+                                name="focusTime"
+                                form={SETTINGS_FORM_ID}
+                                value={focusMinutes}
+                                onChange={(e) => setFocusMinutes(e.target.value)}
+                            />
                         </Field>
                         <Field>
                             <Label htmlFor="breakTime">Break time (minutes)</Label>
-                            <Input id="breakTime" name="breakTime" defaultValue={breakDurationMinutes} />
+                            <Input
+                                id="breakTime"
+                                name="breakTime"
+                                form={SETTINGS_FORM_ID}
+                                value={breakMinutes}
+                                onChange={(e) => setBreakMinutes(e.target.value)}
+                            />
                         </Field>
                     </FieldGroup>
                     <DialogFooter>
                         <DialogClose render={<Button variant="outline">Cancel</Button>} />
-                        <Button type="submit" >Save changes</Button>
+                        <Button type="submit" form={SETTINGS_FORM_ID}>
+                            Save changes
+                        </Button>
                     </DialogFooter>
-                </form>
-            </DialogContent>
+                </DialogContent>
+            </form>
         </Dialog >
     );
 }
