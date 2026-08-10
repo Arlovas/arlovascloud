@@ -13,7 +13,7 @@ import PomodoroSettings from "./components/PomodoroSettings";
 
 export default function Pomodoro() {
     const [mounted, setMounted] = useState(false);
-    const { settings, updateSettings } = useSettings();
+    const { settings, updateSettings, resetToDefault } = useSettings();
 
     useEffect(() => {
         setMounted(true);
@@ -95,7 +95,7 @@ export default function Pomodoro() {
             <aside className="w-[35%] pt-20 pr-8">
                 <PomodoroLog />
                     <br />
-                <PomodoroSettings settings={settings} updateSettings={updateSettings} />
+                <PomodoroSettings settings={settings} updateSettings={updateSettings} resetToDefault={resetToDefault} />
             </aside>
         </main>
     );

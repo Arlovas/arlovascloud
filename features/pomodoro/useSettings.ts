@@ -24,8 +24,14 @@ export function useSettings() {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(newSettings));
     }
 
+    function resetToDefault() {
+        setSettings(DEFAULT_POMODORO_SETTINGS);
+        localStorage.removeItem(STORAGE_KEY);
+    }
+
     return {
         settings,
         updateSettings,
+        resetToDefault,
     };
 }

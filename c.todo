@@ -16,8 +16,8 @@ Pomodoro:
         ✔ Full cycle - Pomodoro -> break -> pomodoro @done(26-07-30 11:00)
         ✔ Pomodoro timer configurable @done(26-08-07 16:02)
         ✔ Change font to mono on the timer @done(26-08-10 10:51)
-        ☐ Validate settings json when save and when read
-        ☐ Restor to default settings (just delete json from local storage)
+        ✔ Validate settings json when save and when read @done(26-08-10 10:52)
+        ✔ Restor to default settings (just delete json from local storage) @done(26-08-10 10:56)
         ☐ Improve the button
         ☐ Add tasks
         ☐ Pomodoro Logs

@@ -16,9 +16,10 @@ const SETTINGS_FORM_ID = "pomodoro-settings-form";
 interface PomodoroSettingsProps {
     settings: PomodoroSettings;
     updateSettings: (settings: PomodoroSettings) => void;
+    resetToDefault: () => void;
 }
 
-export default function PomodoroSettings({ settings, updateSettings }: PomodoroSettingsProps) {
+export default function PomodoroSettings({ settings, updateSettings, resetToDefault }: PomodoroSettingsProps) {
     const [open, setOpen] = useState(false);
     const [focusMinutes, setFocusMinutes] = useState(() =>
         String(settings.focusDurationSeconds / 60),
@@ -53,6 +54,12 @@ export default function PomodoroSettings({ settings, updateSettings }: PomodoroS
             shortBreakDurationSeconds: breakDurationSeconds,
             longBreakDurationSeconds: 0,
         });
+        setOpen(false);
+    }
+
+
+    function handleResetToDefault() {
+        resetToDefault();
         setOpen(false);
     }
 
@@ -101,6 +108,7 @@ export default function PomodoroSettings({ settings, updateSettings }: PomodoroS
                         </Field>
                     </FieldGroup>
                     <DialogFooter>
+                        <Button variant="destructive" onClick={handleResetToDefault}>Reset to default</Button>
                         <DialogClose render={<Button variant="outline">Cancel</Button>} />
                         <Button type="submit" form={SETTINGS_FORM_ID}>
                             Save changes
