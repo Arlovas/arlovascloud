@@ -7,7 +7,7 @@ export default function TimerDisplay({
 }: TimerDisplayProps) {
     return (
         <div className="flex items-center justify-center p-2">
-            <h1 className="text-[5.5rem] font-bold text-white leading-none tracking-tight">
+            <h1 className="text-[5.5rem] font-bold text-white leading-none tracking-tight tabular-nums">
                 {formatDuration(seconds)}
             </h1>
         </div>

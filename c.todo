@@ -14,7 +14,8 @@ Pomodoro:
         ✔ Fix buttons play pause different sizes @done(26-07-14 15:23)
         ✔ Change pomodoro timer markers to blue when in break @done(26-07-30 10:48)
         ✔ Full cycle - Pomodoro -> break -> pomodoro @done(26-07-30 11:00)
-        ✔ Pomodoro timer configurable @done(26-08-07 16:02)        
+        ✔ Pomodoro timer configurable @done(26-08-07 16:02)
+        ✔ Change font to mono on the timer @done(26-08-10 10:51)
         ☐ Validate settings json when save and when read
         ☐ Restor to default settings (just delete json from local storage)
         ☐ Improve the button
