@@ -16,16 +16,18 @@ export default function PomodoroTask() {
         const viewport = scrollAreaRef.current?.querySelector(
             '[data-slot="scroll-area-viewport"]',
         );
-        if (!(viewport instanceof HTMLElement)) {
+        const lastField = scrollAreaRef.current?.querySelector(
+            '[data-slot="field"]:last-of-type',
+        );
+        if (!(viewport instanceof HTMLElement) || !(lastField instanceof HTMLElement)) {
             return;
         }
 
-        const scrollToEnd = () => {
-            viewport.scrollTo({ top: viewport.scrollHeight, behavior: "smooth" });
-        };
+        if (viewport.scrollHeight <= viewport.clientHeight) {
+            return;
+        }
 
-        scrollToEnd();
-        requestAnimationFrame(scrollToEnd);
+        lastField.scrollIntoView({ block: "nearest", behavior: "smooth" });
     }, [tasks.length]);
 
     function handleAddTask(task: string) {
@@ -44,8 +46,8 @@ export default function PomodoroTask() {
     }
 
     return (
-        <div className="flex min-h-0 w-full max-w-2xl flex-1 flex-col overflow-hidden px-4 pb-6">
-            <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-3xl bg-zinc-800/20 p-10 shadow-2xl backdrop-blur-xl">
+        <div className="flex min-h-0 w-full max-w-2xl flex-1 flex-col px-4 pb-6">
+            <div className="flex max-h-full w-full flex-col overflow-hidden rounded-3xl bg-zinc-800/20 p-10 shadow-2xl backdrop-blur-xl">
                 <div className="mb-6 flex shrink-0 items-center justify-between">
                     <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
                         Today&apos;s Focus
@@ -54,8 +56,10 @@ export default function PomodoroTask() {
                     <button type="button" className="text-zinc-500 hover:text-zinc-300">•••</button>
                 </div>
 
-                <div ref={scrollAreaRef} className="h-0 min-h-0 flex-1">
-                    <ScrollArea className="size-full [&_[data-slot=scroll-area-thumb]]:bg-zinc-600 hover:[&_[data-slot=scroll-area-thumb]]:bg-zinc-500">
+                <div ref={scrollAreaRef} className="min-h-0 flex-1">
+                    <ScrollArea
+                        className="size-full [&_[data-slot=scroll-area-scrollbar]]:border-l-0 [&_[data-slot=scroll-area-scrollbar]]:bg-transparent [&_[data-slot=scroll-area-thumb]]:bg-zinc-600 hover:[&_[data-slot=scroll-area-thumb]]:bg-zinc-500"
+                    >
                         <FieldGroup className="pr-3">
                             {tasks.map((task, index) => (
                                 <Field key={index} orientation="horizontal">
@@ -64,7 +68,6 @@ export default function PomodoroTask() {
                                         {task}
                                     </FieldLabel>
                                 </Field>
-
                             ))}
                         </FieldGroup>
                     </ScrollArea>
@@ -74,10 +77,9 @@ export default function PomodoroTask() {
                     <span className="text-3xl leading-none">+</span>
                     <form onSubmit={handleSubmit} className="w-full">
                         <Input className="bg-transparent border-none w-full" placeholder="New task" name="task" />
-
                     </form>
                 </div>
             </div>
         </div>
-    )
+    );
 }
