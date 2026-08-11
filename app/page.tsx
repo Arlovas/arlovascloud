@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Home() {
     return (
-        <div className={`min-h-screen flex flex-col ${debug("bg-gray-900 text-white")}`}>
+        <div className={`flex min-h-0 flex-1 flex-col ${debug("bg-gray-900 text-white")}`}>
             {/* MAIN */}
             <main className={`flex-1 flex items-center ${debug("bg-amber-800")}`}>
                 <section

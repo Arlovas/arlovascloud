@@ -33,9 +33,9 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${jetbrainsMono.variable} h-full antialiased dark`}
     >
-      <body data-theme="dark" className="min-h-full flex flex-col">
+      <body data-theme="dark" className="flex h-svh flex-col overflow-hidden">
         <SiteNav />
-        {children}
+        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">{children}</div>
       </body>
     </html>
   );

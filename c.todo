@@ -18,9 +18,12 @@ Pomodoro:
         ✔ Change font to mono on the timer @done(26-08-10 10:51)
         ✔ Validate settings json when save and when read @done(26-08-10 10:52)
         ✔ Restor to default settings (just delete json from local storage) @done(26-08-10 10:56)
-        ☐ Improve the button
-        ☐ Add tasks
-        ☐ Pomodoro Logs
+        ✘ Improve the button @cancelled(26-08-10 10:59)
+        ☐ If refresh a page with a timer going ask or task? 
+    Add tasks:
+        ☐ Add task visually
+    Pomodoro Logs:
+        ☐ 
 
 Layout:
     ☐ Languages (english / pt-br)

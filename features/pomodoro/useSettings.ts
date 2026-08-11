@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DEFAULT_POMODORO_SETTINGS } from "./constants";
 import { PomodoroSettings } from "./types";
 
@@ -17,7 +17,13 @@ function loadSettings(): PomodoroSettings {
 }
 
 export function useSettings() {
-    const [settings, setSettings] = useState<PomodoroSettings>(loadSettings);
+    const [settings, setSettings] = useState<PomodoroSettings>(DEFAULT_POMODORO_SETTINGS);
+    const [hydrated, setHydrated] = useState(false);
+
+    useEffect(() => {
+        setSettings(loadSettings());
+        setHydrated(true);
+    }, []);
 
     function updateSettings(newSettings: PomodoroSettings) {
         setSettings(newSettings);
@@ -33,5 +39,6 @@ export function useSettings() {
         settings,
         updateSettings,
         resetToDefault,
+        hydrated,
     };
 }
